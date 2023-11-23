@@ -16,6 +16,11 @@
 /.tmp/
 
 # build
-/_site/
-/dist/
-/.rollup.cache
+.rollup.cache/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
