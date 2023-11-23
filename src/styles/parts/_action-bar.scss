@@ -1,0 +1,40 @@
+
+.action-bar {
+    flex-basis: 100%;
+    border-bottom: var(--dr-container-border-width) solid var(--dr-container-border-color);
+    padding: var(--dr-action-bar-padding-y) var(--dr-action-bar-padding-x);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--dr-action-bar-gap);
+    button {
+        color: var(--dr-action-button-color);
+        background-color: unset;
+        background: none;
+        border: none;
+        display: flex;
+        gap: var(--dr-action-button-gap);
+        align-items: center;
+        border-radius: var(--dr-action-button-border-radius);
+        min-height: 44px;
+        font-family: var(--dr-action-button-font-family);
+        font-size: var(--dr-action-button-font-size);
+        font-weight: var(--dr-action-button-font-weight);
+        line-height: 1;
+        cursor: pointer;
+        transition: all .225s ease;
+        padding: var(--dr-action-button-padding-y) var(--dr-action-button-padding-x);
+        &:hover {
+            background-color: var(--dr-action-button-hover-background);
+        }
+        svg {
+            flex-shrink: 0;
+            stroke-width: var(--dr-action-button-icon-stroke-width);
+            width: var(--dr-action-button-icon-size);
+            height: var(--dr-action-button-icon-size);
+        }
+    }
+    #active-toggle {
+        stroke: var(--dr-container-background);
+        fill: var(--dr-container-background);
+    }
+}

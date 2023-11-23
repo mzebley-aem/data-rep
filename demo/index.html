@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../dist/root-variables.css">
+  <script type="module" src="../dist/bundle.js"></script>
+</head>
+<body>
+  <div id="demo">
+    <data-rep></data-rep>
+  </div>
+
+  <script type="module">
+    document.addEventListener('DOMContentLoaded', (event) => {
+            const data = [
+                {
+                    label: 'White',
+                    value: 85134,
+                    definition: 'A person having origins in any of the original peoples of Europe, the Middle East, or North Africa. (Does not include persons of Hispanic/Latino ethnicity.)'
+                },
+                {
+                    label: 'Black or African American',
+                    definition: `A person having origins in any of the Black racial groups of Africa. (Does not include persons of Hispanic/Latino ethnicity.)`,
+                    value: 58162
+                },
+                {
+                    label: 'Hispanic or Latino',
+                    definition: 'A person of Cuban, Mexican, Puerto Rican, South or Central American, or other Spanish culture or origin, regardless of race. Refers to Hispanic and/or Latino.',
+                    value: 35079
+                },
+                {
+                    label: 'Two or more races',
+                    definition: 'A person having origins in two or more of the five race categories listed immediately above. (Does not include persons of Hispanic/Latino ethnicity.)',
+                    value: 10758
+                },
+                {
+                    label: 'Asian',
+                    definition: 'A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian subcontinent. This includes, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, and Vietnam. (Does not include persons of Hispanic/Latino ethnicity.)',
+                    value: 3339
+                },
+                {
+                    label: 'American Indian or Alaskan Native',
+                    definition: 'A person having origins in any of the original peoples of North and South America (including Central America) and who maintains tribal affiliation or community attachment. (Does not include persons of Hispanic/Latino ethnicity.)',
+                    value: 2583
+                },
+                {
+                    label: 'Native Hawaiian or other Pacific Islander',
+                    definition: 'A person having origins in any of the original peoples of Hawaii, Guam, Samoa, or other Pacific Islands. (Does not include persons of Hispanic/Latino ethnicity.)',
+                    value: 214
+                },
+            ];
+
+            const insight = 'Distribution of children with disabilities by race and ethnicity, ages 3-21.';
+
+            const jsonString = JSON.stringify(data);
+            const component = document.querySelector('data-rep');
+            if (component) {
+                component.setAttribute('data', jsonString);
+                component.setAttribute('insight', insight);
+                component.setAttribute('header', "Race and ethnicities");
+            }
+        });
+  </script>
+</body>
+</html>

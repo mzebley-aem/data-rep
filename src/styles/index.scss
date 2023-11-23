@@ -1,0 +1,22 @@
+@forward "./parts/action-bar";
+@forward "./parts/content";
+@forward "./parts/series";
+@forward "./parts/modal";
+@forward "./parts/data-table";
+
+:host {
+    display: inline-block;
+}
+
+article {
+    margin: var(--dr-container-margin-y) var(--dr-container-margin-x);
+    max-width: var(--dr-container-max-width);
+    background: var(--dr-container-background);
+    border-radius: var(--dr-container-border-radius);
+    border: var(--dr-container-border-width) solid var(--dr-container-border-color);
+    color: var(--dr-container-ink);
+    display: flex;
+    flex-direction: column;
+    gap: var(--dr-container-gap);
+    padding: var(--dr-padding-y) 0;
+}

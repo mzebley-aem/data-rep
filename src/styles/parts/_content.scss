@@ -1,0 +1,31 @@
+
+.heading {
+    margin: 0;
+    font-size: var(--dr-heading-font-size);
+    font-weight: var(--dr-heading-font-weight);
+    line-height: var(--dr-heading-line-height);
+    padding: 0 var(--dr-padding-x);
+    font-family: var(--dr-heading-font-family);
+}
+
+.insight,
+.total {
+    margin: 0;
+    font-size: var(--dr-insight-font-size);
+    font-weight: var(--dr-insight-font-weight);
+    line-height: var(--dr-insight-line-height);
+    padding: 0 var(--dr-padding-x);
+    font-family: var(--dr-insight-font-family);
+}
+
+.plain-language {
+    background-color: var(--dr-plain-language-background);
+    color: var(--dr-plain-language-color);
+    padding: var(--dr-plain-language-padding-y) var(--dr-plain-language-padding-x);
+    font-family: var(--dr-plain-language-font-family);
+    font-size: var(--dr-plain-language-font-size);
+    font-weight: var(--dr-plain-language-font-weight);
+    line-height: var(--dr-plain-language-line-height);
+    margin: calc(var(--dr-container-gap) * -1) 0 0;
+    border-bottom: var(--dr-container-border-width) solid var(--dr-container-border-color);
+}
