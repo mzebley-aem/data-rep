@@ -16,6 +16,9 @@ export default {
             tsconfig: './tsconfig.json'
           }),
         litCss(),
-        terser()
+        terser({
+            safari10: true,
+            ecma: 2015
+        })
     ]
 };
