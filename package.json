@@ -2,12 +2,12 @@
   "name": "data-rep",
   "version": "1.0.0",
   "description": "This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.",
-  "main": "dist/bundle.js",
+  "main": "public/bundle.js",
   "scripts": {
     "build:scss": "sass src/styles/index.scss src/styles/index.css",
-    "build:css": "npm run build:scss && postcss src/styles/index.css -o src/styles/index.css && postcss src/styles/root-variables.css -o dist/root-variables.css",
+    "build:css": "npm run build:scss && postcss src/styles/index.css -o src/styles/index.css && postcss src/styles/root-variables.css -o public/root-variables.css",
     "build": "npm run build:css && rollup -c",
-    "start": "npm run build && es-dev-server --app-index demo/index.html --node-resolve --watch --open --watch-exclude 'src/styles/index.css'"
+    "start": "npm run build && es-dev-server --app-index public/index.html --node-resolve --watch --open --watch-exclude 'src/styles/index.css'"
   },
   "keywords": [
     "a11y",

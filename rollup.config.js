@@ -6,7 +6,7 @@ import litCss from 'rollup-plugin-lit-css';
 export default {
     input: 'src/index.ts',
     output: {
-        file: 'dist/bundle.js',
+        file: 'public/bundle.js',
         format: 'esm',
         sourcemap: true
     },
@@ -16,6 +16,9 @@ export default {
             tsconfig: './tsconfig.json'
           }),
         litCss(),
-        terser()
+        terser({
+            safari10: true,
+            ecma: 2015,
+        })
     ]
 };
