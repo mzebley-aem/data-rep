@@ -15,8 +15,12 @@
     "sourceMap": true,
     "inlineSources": true,
     "rootDir": "./",
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["src/*"]
+    },
     "declaration": true,
     "incremental": true
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "src/templates/*.d.ts"],
 }

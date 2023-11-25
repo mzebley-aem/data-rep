@@ -2,6 +2,12 @@
 
 :root {
 
+    --dr-check-icon: url("data:image/svg+xml,%0A%3Csvg height='100px' width='100px' fill='%23ffffff' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22.76 20.09' x='0px' y='0px'%3E%3Ctitle%3Echeckmark%3C/title%3E%3Cg data-name='Layer 2'%3E%3Cg data-name='Layer 1'%3E%3Cpath d='M22.76,1.34l-2.15,2c-.68.72-1.39,1.4-2,2.13a46.43,46.43,0,0,0-3.65,4.56A36.5,36.5,0,0,0,12,15a26.45,26.45,0,0,0-1.1,2.59c-.16.44-.3.87-.43,1.31a9.59,9.59,0,0,0-.27,1.19L6.27,20v0a3.62,3.62,0,0,0-.08-.51A5.83,5.83,0,0,0,6,18.84a12.41,12.41,0,0,0-.48-1.37,18.5,18.5,0,0,0-1.43-2.66,23.55,23.55,0,0,0-1.88-2.49C1.54,11.53.78,10.78,0,10l.54-.7.54-.7.46.3c.79.54,1.56,1.1,2.3,1.71A24.7,24.7,0,0,1,6.38,13a23.63,23.63,0,0,1,1.66,2c.3-.58.63-1.15,1-1.71a40.22,40.22,0,0,1,3.67-5A47.16,47.16,0,0,1,17,3.88c.74-.7,1.54-1.34,2.31-2l.05,0L21.68,0l.54.67Z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+    --dr-focus-outline-width: 0.25rem;
+    --dr-focus-outline-color: hsl(160, 96%, 39%);
+    --dr-focus-outline-offset: 0.25rem;
+
     --dr-modal-background: rgba(0, 0, 0, 0.5);
     --dr-modal-z-index: 1000;
     --dr-modal-content-background: white;
@@ -80,24 +86,35 @@
     --dr-padding-x: 1.5rem;
     --dr-container-gap: .5rem;
     --dr-container-background: white;
-    --dr-container-ink: #333;
+    --dr-container-ink: #323234;
     --dr-container-border-color: lightgray;
     --dr-container-border-width: .125rem;
     --dr-container-border-radius: .5rem;
+
+
     --dr-action-bar-padding-y: .5rem;
     --dr-action-bar-padding-x: 1.5rem;
     --dr-action-bar-gap: 1rem;
-    --dr-action-button-color: #222FBF;
-    --dr-action-button-hover-background: #eaeaea;
-    --dr-action-button-gap: .325rem;
-    --dr-action-button-border-radius: .25rem;
-    --dr-action-button-padding-y: .25rem;
-    --dr-action-button-padding-x: .5rem;
-    --dr-action-button-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    --dr-action-button-font-size: 1rem;
-    --dr-action-button-font-weight: 400;
-    --dr-action-button-icon-stroke-width: 2;
-    --dr-action-button-icon-size: 1.5rem;
+    --dr-action-bar-item-hover-background: #eaeaea;
+    --dr-action-bar-item-gap: .325rem;
+    --dr-action-bar-item-border-radius: .25rem;
+    --dr-action-bar-item-padding-y: .25rem;
+    --dr-action-bar-item-padding-x: .5rem;
+    --dr-action-bar-item-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    --dr-action-bar-item-font-size: 1.125rem;
+    --dr-action-bar-item-font-weight: 500;
+    --dr-action-bar-button-color: #222FBF;
+    --dr-action-bar-button-icon-stroke-width: 2;
+    --dr-action-bar-button-icon-size: 1.5rem;
+    --dr-action-bar-toggle-indicator-background: var(--dr-container-background);
+    --dr-action-bar-toggle-indicator-size: 1.25rem;
+    --dr-action-bar-toggle-indicator-border-radius: 1.25rem;
+    --dr-action-bar-toggle-track-background: var(--dr-container-ink);
+    --dr-action-bar-toggle-track-active-background: var(--dr-action-bar-button-color);
+    --dr-action-bar-toggle-track-border-radius: 1.25rem;
+    --dr-action-bar-toggle-track-border-width: var(--dr-container-border-width);
+    --dr-action-bar-item-outline-offset: 0px;
+
     --dr-heading-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     --dr-heading-font-size: 2em;
     --dr-heading-font-weight: 600;

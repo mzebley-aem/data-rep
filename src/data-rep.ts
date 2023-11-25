@@ -2,11 +2,16 @@ import { LitElement, html } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { customElement, property } from "lit/decorators.js";
 import styles from "./styles/index.css";
+import { v4 as uuidv4 } from "uuid";
+
+// TODO: Break out chunks of code into separate files
+// import * as actionBar from "./templates/action-bar.js";
 
 @customElement("data-rep")
 export class DataRep extends LitElement {
   static styles = [styles];
-
+  private uniqueIdPrefix: string = "";
+  // @property() is a decorator that defines a reactive property.
   // Public properties
   @property()
   header?: string = "Title";
@@ -45,7 +50,6 @@ export class DataRep extends LitElement {
   // Private properties
   private total: number = 0;
   @property()
-  // @property() is a decorator that defines a reactive property.
   private showExplanation: boolean = false;
   private explanation: string = "";
   @property()
@@ -60,9 +64,11 @@ export class DataRep extends LitElement {
 
   constructor() {
     super();
+    this.togglePlainLanguage = this.togglePlainLanguage.bind(this);
+    this.toggleGlossary = this.toggleGlossary.bind(this);
     // Define reactive properties--updating a reactive property causes
     // the component to update.
-
+    this.uniqueIdPrefix = uuidv4().slice(0, 9);
     this.showGlossaryBtn = false;
     this.showGlossary = false;
     this.showExplanation = false;
@@ -124,107 +130,49 @@ export class DataRep extends LitElement {
           ${this.isHtml(this.insight) ? unsafeHTML(this.insight) : this.insight}
         </p>
         <div class="action-bar">
+          <ul role="group" aria-label="Data representation action options">
+            <li class="action-item" @click=${this.togglePlainLanguage}>
+              <label for="${this.uniqueIdPrefix}explanationSwitch">
+                <input
+                  type="checkbox"
+                  id="${this.uniqueIdPrefix}explanationSwitch"
+                  aria-controls="${this.uniqueIdPrefix}explanationRegion"
+                  value=${this.showExplanation}
+                  .checked=${this.showExplanation}
+                />
+                <span class="toggle-track">
+                  <span class="toggle-indicator">
+                    <span class="check-mark">
+                      <svg xmlns="http://www.w3.org/2000/svg" id="${this.uniqueIdPrefix}explanation-svg-check" role="presentation" aria-hidden="true" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                    </span>
+                  </span>
+                </span>
+                Explain
+              </label>
+            </li>
+            <li class="action-item" hidden="${!this.showGlossaryBtn}" @click=${this.toggleGlossary}>
+              <label for="${this.uniqueIdPrefix}glossarySwitch">
+                <input
+                  type="checkbox"
+                  id="${this.uniqueIdPrefix}glossarySwitch"
+                  value=${this.showGlossary}
+                  .checked=${this.showGlossary}
+                />
+                <span class="toggle-track">
+                  <span class="toggle-indicator">
+                    <span class="check-mark">
+                      <svg xmlns="http://www.w3.org/2000/svg" id="${this.uniqueIdPrefix}glossary-svg-check" role="presentation" aria-hidden="true" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                    </span>
+                  </span>
+                </span>
+                Glossary
+              </label>
+            </li>
+          </ul>
           <button
-            @click=${this.togglePlainLanguage}
-            id="explainSwitchDisability"
-            aria-pressed="false"
-            aria-controls="explainRegionDisability"
+            id="${this.uniqueIdPrefix}data-modal-button"
+            @click=${this.openDataModal}
           >
-            ${this.showExplanation
-              ? html`<svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon icon-tabler icon-tabler-toggle-right"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M2 6m0 6a6 6 0 0 1 6 -6h8a6 6 0 0 1 6 6v0a6 6 0 0 1 -6 6h-8a6 6 0 0 1 -6 -6z"
-                  ></path>
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path
-                    d="M16 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"
-                    id="active-toggle"
-                  ></path>
-                </svg>`
-              : html`<svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon icon-tabler icon-tabler-toggle-left"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M8 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
-                  <path
-                    d="M2 6m0 6a6 6 0 0 1 6 -6h8a6 6 0 0 1 6 6v0a6 6 0 0 1 -6 6h-8a6 6 0 0 1 -6 -6z"
-                  ></path>
-                </svg>`}
-            <label for="explainSwitchDisability">Explain</label>
-          </button>
-          <button
-          @click=${this.toggleGlossary}
-          id="glossarySwitchDisability"
-          aria-pressed="false"
-          hidden="${!this.showGlossaryBtn}"
-        >
-          ${this.showGlossary
-            ? html`<svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="icon icon-tabler icon-tabler-toggle-right"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path
-                  fill="currentColor"
-                  d="M2 6m0 6a6 6 0 0 1 6 -6h8a6 6 0 0 1 6 6v0a6 6 0 0 1 -6 6h-8a6 6 0 0 1 -6 -6z"
-                ></path>
-                <path
-                  stroke="none"
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                ></path>
-                <path
-                  d="M16 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"
-                  id="active-toggle"
-                ></path>
-              </svg>`
-            : html`<svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="icon icon-tabler icon-tabler-toggle-left"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path
-                  stroke="none"
-                  d="M0 0h24v24H0z"
-                  fill="none"
-                ></path>
-                <path
-                  d="M8 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"
-                ></path>
-                <path
-                  d="M2 6m0 6a6 6 0 0 1 6 -6h8a6 6 0 0 1 6 6v0a6 6 0 0 1 -6 6h-8a6 6 0 0 1 -6 -6z"
-                ></path>
-              </svg>`}
-              <label for="glossarySwitchDisability">Glossary</label>
-        </button>
-          <button id="data-modal-button" @click=${this.openDataModal}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="icon icon-tabler icon-tabler-table"
@@ -263,7 +211,7 @@ export class DataRep extends LitElement {
         </div>
         <div
           class="plain-language"
-          id="explainRegionDisability"
+          id="${this.uniqueIdPrefix}explanationRegion"
           aria-expanded="false"
           tabindex="-1"
           hidden="true"
@@ -272,7 +220,7 @@ export class DataRep extends LitElement {
             this.explanation ?? "Error generating plain language summary."
           )}
         </div>
-        <ol>
+        <ol id="${this.uniqueIdPrefix}series" class="series">
           ${this.data
             ? this.data.map(
                 (item) => html`
@@ -324,15 +272,18 @@ export class DataRep extends LitElement {
         </p>
       </article>
       <section
-        id="data-modal"
+        id="${this.uniqueIdPrefix}data-modal"
         class="modal"
         role="dialog"
         aria-modal="true"
-        aria-labelledby="dataModalTitle"
+        aria-labelledby="${this.uniqueIdPrefix}dataModalTitle"
         hidden
       >
         <div class="modal-content" role="document">
-          <button id="closeModalButton" @click=${this.closeModal}>
+          <button
+            id="${this.uniqueIdPrefix}closeModalButton"
+            @click=${this.closeModal}
+          >
             Close
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -350,7 +301,9 @@ export class DataRep extends LitElement {
               <path d="M6 6l12 12" />
             </svg>
           </button>
-          <h2 id="dataModalTitle">${this.header ?? "Title"}</h2>
+          <h2 id="${this.uniqueIdPrefix}dataModalTitle">
+            ${this.header ?? "Title"}
+          </h2>
           <p class="description">${unsafeHTML(this.insight ?? "Insights")}</p>
           <div
             class="data-table"
@@ -453,51 +406,40 @@ export class DataRep extends LitElement {
   // instance, causing it to re-render
 
   togglePlainLanguage() {
-    this.showExplanation = !this.showExplanation;
-    const glossarySwitchDisability = this.shadowRoot!.getElementById(
-      "glossarySwitchDisability"
+    // this.showExplanation = !this.showExplanation;
+
+    // Create references to the elements we'll need to manipulate
+    const glossarySwitch = this.shadowRoot!.getElementById(
+      this.uniqueIdPrefix + "glossarySwitch"
     ) as HTMLElement;
-    const explainSwitchDisability = this.shadowRoot!.getElementById(
-      "explainSwitchDisability"
-    ) as HTMLElement;
-    const explainRegionDisability = this.shadowRoot!.getElementById(
-      "explainRegionDisability"
+    const explanationSwitch = this.shadowRoot!.getElementById(
+      this.uniqueIdPrefix + "explanationSwitch"
+    ) as HTMLInputElement;
+    const explanationRegion = this.shadowRoot!.getElementById(
+      this.uniqueIdPrefix + "explanationRegion"
     ) as HTMLElement;
 
-    explainSwitchDisability.setAttribute(
-      "aria-pressed",
-      this.showExplanation.toString()
-    );
-    explainRegionDisability.setAttribute(
+    explanationRegion.setAttribute(
       "aria-expanded",
-      this.showExplanation.toString()
+      explanationSwitch.checked.toString()
     );
-    explainRegionDisability.hidden = !this.showExplanation;
+    explanationRegion.hidden = !explanationSwitch.checked;
 
     if (this.showExplanation) {
-      explainRegionDisability.addEventListener(
-        "keydown",
-        this.handleTabFromPanel
-      );
-      explainSwitchDisability.addEventListener(
+      explanationRegion.addEventListener("keydown", this.handleTabFromPanel);
+      explanationSwitch.addEventListener(
         "keydown",
         this.handleTabFromPlainLanguageBtn
       );
-      glossarySwitchDisability.addEventListener(
-        "keydown",
-        this.handleTabFromGlossaryBtn
-      );
+      glossarySwitch.addEventListener("keydown", this.handleTabFromGlossaryBtn);
     } else {
-      explainSwitchDisability.focus();
-      explainRegionDisability.removeEventListener(
-        "keydown",
-        this.handleTabFromPanel
-      );
-      explainSwitchDisability.removeEventListener(
+      explanationSwitch.focus();
+      explanationRegion.removeEventListener("keydown", this.handleTabFromPanel);
+      explanationSwitch.removeEventListener(
         "keydown",
         this.handleTabFromPlainLanguageBtn
       );
-      glossarySwitchDisability.removeEventListener(
+      glossarySwitch.removeEventListener(
         "keydown",
         this.handleTabFromGlossaryBtn
       );
@@ -506,54 +448,50 @@ export class DataRep extends LitElement {
 
   handleTabFromPanel = (event: KeyboardEvent) => {
     // Handle forward tab (Tab without Shift)
-    const glossarySwitchDisability = this.shadowRoot!.getElementById(
-      "glossarySwitchDisability"
+    const glossarySwitch = this.shadowRoot!.getElementById(
+      this.uniqueIdPrefix + "glossarySwitch"
     ) as HTMLElement;
-    const explainSwitchDisability = this.shadowRoot!.getElementById(
-      "explainSwitchDisability"
+    const explanationSwitch = this.shadowRoot!.getElementById(
+      this.uniqueIdPrefix + "explanationSwitch"
     ) as HTMLElement;
     if (event.key === "Tab" && !event.shiftKey) {
       event.preventDefault();
-      glossarySwitchDisability.focus();
+      glossarySwitch.focus();
     }
     // Handle backward tab (Shift + Tab)
     else if (event.key === "Tab" && event.shiftKey) {
       event.preventDefault();
-      explainSwitchDisability.focus();
+      explanationSwitch.focus();
     }
   };
 
   handleTabFromPlainLanguageBtn = (event: KeyboardEvent) => {
     // Handle forward tab (Tab without Shift)
-    const explainRegionDisability = this.shadowRoot!.getElementById(
-      "explainRegionDisability"
+    const explanationRegion = this.shadowRoot!.getElementById(
+      this.uniqueIdPrefix + "explanationRegion"
     ) as HTMLElement;
     if (event.key === "Tab" && !event.shiftKey) {
       event.preventDefault();
-      explainRegionDisability.focus();
+      explanationRegion.focus();
     }
   };
 
   handleTabFromGlossaryBtn = (event: KeyboardEvent) => {
     // Handle backward tab (Shift + Tab)
-    const explainRegionDisability = this.shadowRoot!.getElementById(
-      "explainRegionDisability"
+    const explanationRegion = this.shadowRoot!.getElementById(
+      this.uniqueIdPrefix + "explanationRegion"
     ) as HTMLElement;
     if (event.key === "Tab" && event.shiftKey) {
       event.preventDefault();
-      explainRegionDisability.focus();
+      explanationRegion.focus();
     }
   };
 
   toggleGlossary() {
-    this.showGlossary = !this.showGlossary;
-    const glossarySwitchDisability = this.shadowRoot!.getElementById(
-      "glossarySwitchDisability"
-    ) as HTMLElement;
-    glossarySwitchDisability.setAttribute(
-      "aria-pressed",
-      this.showGlossary.toString()
-    );
+    // this.showGlossary = !this.showGlossary;
+    const glossarySwitch = this.shadowRoot!.getElementById(
+      this.uniqueIdPrefix + "glossarySwitch"
+    ) as HTMLInputElement;
 
     const definitions = this.shadowRoot!.querySelectorAll(
       ".definition"
@@ -561,8 +499,8 @@ export class DataRep extends LitElement {
 
     // Cycle through all .definition elements and add set aria-expanded to true
     definitions.forEach((definition: HTMLElement) => {
-      definition.setAttribute("aria-expanded", this.showGlossary.toString());
-      definition.hidden = !this.showGlossary;
+      definition.setAttribute("aria-expanded", glossarySwitch.checked.toString());
+      definition.hidden = !glossarySwitch.checked;
     });
   }
 

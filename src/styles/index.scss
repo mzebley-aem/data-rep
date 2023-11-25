@@ -6,6 +6,7 @@
 
 :host {
     display: inline-block;
+
 }
 
 article {
@@ -19,4 +20,10 @@ article {
     flex-direction: column;
     gap: var(--dr-container-gap);
     padding: var(--dr-padding-y) 0;
+
+    :focus, :focus-visible {
+        outline: var(--dr-focus-outline-width) solid var(--dr-focus-outline-color);
+        outline-offset: var(--dr-focus-outline-offset);
+        z-index:3;
+    }
 }

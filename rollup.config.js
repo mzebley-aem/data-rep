@@ -3,6 +3,7 @@ import typescript from '@rollup/plugin-typescript';
 import terser from '@rollup/plugin-terser';
 import litCss from 'rollup-plugin-lit-css';
 
+
 export default {
     input: 'src/index.ts',
     output: {
@@ -11,10 +12,12 @@ export default {
         sourcemap: true
     },
     plugins: [
-        resolve(),
+        resolve({
+            browser: true
+        }),
         typescript({
             tsconfig: './tsconfig.json'
-          }),
+        }),
         litCss(),
         terser({
             safari10: true,

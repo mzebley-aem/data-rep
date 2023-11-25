@@ -1,5 +1,5 @@
 
-ol {
+ol.series {
     padding: var(--dr-series-group-padding-y) var(--dr-series-group-padding-x);
     display: flex;
     flex-direction: column;
@@ -13,7 +13,7 @@ ul {
     margin: 0;
 }
 
-ol li {
+ol.series li {
     display: flex;
     flex-direction: column;
     gap: var(--dr-series-item-gap);
@@ -28,14 +28,14 @@ ol li {
     gap: calc(var(--dr-series-item-gap) / 2);
 }
 
-ol li .label {
+ol.series li .label {
     font-size: var(--dr-series-label-font-size);
     font-weight: var(--dr-series-label-font-weight);
     line-height: var(--dr-series-label-line-height);
     margin: 0;
 }
 
-ol li .definition {
+ol.series li .definition {
     font-size: var(--dr-series-definition-font-size);
     font-weight: var(--dr-series-definition-font-weight);
     line-height: var(--dr-series-definition-line-height);
