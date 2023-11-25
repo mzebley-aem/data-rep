@@ -6,10 +6,6 @@ const cssnano = require('cssnano');
 module.exports = {
   plugins: [
     autoprefixer,
-    cssnano({ preset: ['default', {
-      discardComments: {
-          removeAll: true,
-      },
-  }] })
+    cssnano({ preset: 'default' })
   ]
 };
