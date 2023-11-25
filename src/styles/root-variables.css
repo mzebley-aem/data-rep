@@ -22,7 +22,7 @@
     --dr-modal-content-max-height: 90%;
     --dr-modal-content-overflow: scroll;
     --dr-modal-content-gap: 1rem;
-    --dr-modal-content-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    --dr-modal-content-font-family: Verdana, Geneva, sans-serif;
     --dr-modal-content-font-size: 1rem;
     --dr-modal-content-font-weight: 400;
     --dr-modal-content-line-height: 150%;
@@ -39,7 +39,7 @@
     --dr-modal-content-close-button-border-radius: .25rem;
     --dr-modal-content-close-button-padding-y: .25rem;
     --dr-modal-content-close-button-padding-x: .5rem;
-    --dr-modal-content-close-button-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    --dr-modal-content-close-button-font-family: Verdana, Geneva, sans-serif;
     --dr-modal-content-close-button-font-size: 1rem;
     --dr-modal-content-close-button-font-weight: 400;
     --dr-modal-content-close-button-icon-stroke-width: 2;
@@ -56,7 +56,7 @@
     --dr-table-col-gap: 0;
     --dr-table-ink: #333;
     --dr-table-stripe-ink: #333;
-    --dr-table-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    --dr-table-font-family: Verdana, Geneva, sans-serif;
     --dr-table-numeral-font-family: var(--dr-numeral-font-family);
     --dr-table-font-size: 1rem;
     --dr-table-font-weight: 400;
@@ -100,7 +100,7 @@
     --dr-action-bar-item-border-radius: .25rem;
     --dr-action-bar-item-padding-y: .25rem;
     --dr-action-bar-item-padding-x: .5rem;
-    --dr-action-bar-item-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    --dr-action-bar-item-font-family: Verdana, Geneva, sans-serif;
     --dr-action-bar-item-font-size: 1.125rem;
     --dr-action-bar-item-font-weight: 500;
     --dr-action-bar-button-color: #222FBF;
@@ -110,19 +110,24 @@
     --dr-action-bar-toggle-indicator-size: 1.25rem;
     --dr-action-bar-toggle-indicator-border-radius: 1.25rem;
     --dr-action-bar-toggle-track-background: var(--dr-container-ink);
+    --dr-action-bar-toggle-track-border-color: var(--dr-action-bar-toggle-track-background);
     --dr-action-bar-toggle-track-active-background: var(--dr-action-bar-button-color);
+    --dr-action-bar-toggle-track-active-border-color: var(--dr-action-bar-toggle-track-active-background);
     --dr-action-bar-toggle-track-border-radius: 1.25rem;
     --dr-action-bar-toggle-track-border-width: var(--dr-container-border-width);
     --dr-action-bar-item-outline-offset: 0px;
 
-    --dr-heading-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    --dr-heading-font-family: Verdana, Geneva, sans-serif;
     --dr-heading-font-size: 2em;
     --dr-heading-font-weight: 600;
     --dr-heading-line-height: 125%;
-    --dr-insight-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    --dr-insight-font-family: Verdana, Geneva, sans-serif;
     --dr-insight-font-size: 1.25rem;
     --dr-insight-font-weight: 400;
     --dr-insight-line-height: 150%;
+
+
     --dr-series-group-padding-y: 1rem;
     --dr-series-group-padding-x: 1.5rem;
     --dr-series-group-gap: 1.5rem;
@@ -131,8 +136,8 @@
     --dr-series-item-min-width: .125rem;
     --dr-series-item-border-radius: 0;
     --dr-series-item-flex-amount: 1;
-    --dr-series-item-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    --dr-numeral-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    --dr-series-item-font-family: Verdana, Geneva, sans-serif;
+    --dr-numeral-font-family: Verdana, Geneva, sans-serif;
     --dr-series-label-font-size: 1.125rem;
     --dr-series-label-font-weight: 600;
     --dr-series-label-line-height: 150%;
@@ -146,8 +151,10 @@
     --dr-series-percentage-font-weight: 400;
     --dr-series-percentage-line-height: 150%;
     --dr-series-percentage-background: hsl(47, 86%, 90%);
-    --dr-plain-language-font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    --dr-plain-language-font-size: 1rem;
+
+
+    --dr-plain-language-font-family: Verdana, Geneva, sans-serif;
+    --dr-plain-language-font-size: 1.125rem;
     --dr-plain-language-font-weight: 400;
     --dr-plain-language-line-height: 150%;
     --dr-plain-language-background: hsl(47, 86%, 90%);

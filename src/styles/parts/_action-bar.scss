@@ -27,6 +27,7 @@
 
         &:checked+.toggle-track {
             background-color:var(--dr-action-bar-toggle-track-active-background);
+            border-color: var(--dr-action-bar-toggle-track-active-border-color);
             .toggle-indicator {
                 transform: translateX(calc((var(--dr-action-bar-toggle-indicator-size) * 2) - (var(--dr-action-bar-toggle-indicator-size) + (var(--dr-action-bar-toggle-track-border-width) * 2))));
 
@@ -87,6 +88,7 @@
 
         .toggle-track {
             background-color: var(--dr-action-bar-toggle-track-background);
+            border: var(--dr-action-bar-toggle-track-border-width) solid var(--dr-action-bar-toggle-track-border-color);
             border-radius: var(--dr-action-bar-toggle-track-border-radius);
             cursor: pointer;
             display: flex;
