@@ -2,66 +2,69 @@
 
 :root {
 
-    --dr-check-icon: url("data:image/svg+xml,%0A%3Csvg height='100px' width='100px' fill='%23ffffff' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22.76 20.09' x='0px' y='0px'%3E%3Ctitle%3Echeckmark%3C/title%3E%3Cg data-name='Layer 2'%3E%3Cg data-name='Layer 1'%3E%3Cpath d='M22.76,1.34l-2.15,2c-.68.72-1.39,1.4-2,2.13a46.43,46.43,0,0,0-3.65,4.56A36.5,36.5,0,0,0,12,15a26.45,26.45,0,0,0-1.1,2.59c-.16.44-.3.87-.43,1.31a9.59,9.59,0,0,0-.27,1.19L6.27,20v0a3.62,3.62,0,0,0-.08-.51A5.83,5.83,0,0,0,6,18.84a12.41,12.41,0,0,0-.48-1.37,18.5,18.5,0,0,0-1.43-2.66,23.55,23.55,0,0,0-1.88-2.49C1.54,11.53.78,10.78,0,10l.54-.7.54-.7.46.3c.79.54,1.56,1.1,2.3,1.71A24.7,24.7,0,0,1,6.38,13a23.63,23.63,0,0,1,1.66,2c.3-.58.63-1.15,1-1.71a40.22,40.22,0,0,1,3.67-5A47.16,47.16,0,0,1,17,3.88c.74-.7,1.54-1.34,2.31-2l.05,0L21.68,0l.54.67Z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-
     --dr-focus-outline-width: 0.25rem;
     --dr-focus-outline-color: hsl(160, 96%, 39%);
     --dr-focus-outline-offset: 0.25rem;
 
     --dr-modal-background: rgba(0, 0, 0, 0.5);
     --dr-modal-z-index: 1000;
-    --dr-modal-content-background: white;
-    --dr-modal-content-padding-y: 1.5rem;
-    --dr-modal-content-padding-x: 1.5rem;
-    --dr-modal-content-border-radius: .5rem;
+
+    --dr-modal-content-background: var(--dr-container-background);
+    --dr-modal-content-padding-y: var(--dr-padding-y);
+    --dr-modal-content-padding-x: var(--dr-padding-x);
+    --dr-modal-content-border-radius: var(--dr-container-border-radius);
     --dr-modal-content-border-width: 0;
-    --dr-modal-content-border-color: lightgray;
+    --dr-modal-content-border-color: var(--dr-container-border-color);
     --dr-modal-content-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
     --dr-modal-content-min-width: 50%;
     --dr-modal-content-max-width: 90%;
     --dr-modal-content-max-height: 90%;
     --dr-modal-content-overflow: scroll;
-    --dr-modal-content-gap: 1rem;
-    --dr-modal-content-font-family: Verdana, Geneva, sans-serif;
+    --dr-modal-content-gap: var(--dr-container-gap);
+    --dr-modal-content-font-family: var(--dr-container-content-font-family);
     --dr-modal-content-font-size: 1rem;
-    --dr-modal-content-font-weight: 400;
-    --dr-modal-content-line-height: 150%;
-    --dr-modal-content-ink: #333;
-    --dr-modal-heading-ink: #333;
-    --dr-modal-content-heading-font-size: 2em;
-    --dr-modal-content-heading-font-weight: 600;
-    --dr-modal-content-heading-line-height: 125%;
-    --dr-modal-content-close-button-background: none;
-    --dr-modal-content-close-button-color: var(--dr-modal-content-ink);
-    --dr-modal-content-close-button-hover-background: none;
-    --dr-modal-content-close-button-hover-color: var(--dr-modal-content-ink);
-    --dr-modal-content-close-button-gap: .325rem;
-    --dr-modal-content-close-button-border-radius: .25rem;
-    --dr-modal-content-close-button-padding-y: .25rem;
-    --dr-modal-content-close-button-padding-x: .5rem;
-    --dr-modal-content-close-button-font-family: Verdana, Geneva, sans-serif;
-    --dr-modal-content-close-button-font-size: 1rem;
-    --dr-modal-content-close-button-font-weight: 400;
-    --dr-modal-content-close-button-icon-stroke-width: 2;
-    --dr-modal-content-close-button-icon-size: 1.5rem;
+    --dr-modal-content-font-weight:  var(--dr-container-content-font-weight);
+    --dr-modal-content-line-height:  var(--dr-container-content-line-height);
+    --dr-modal-content-ink: var(--dr-container-ink);
+
+    --dr-modal-heading-ink: var(--dr-container-ink);
+    --dr-modal-heading-font-family: var(--dr-container-heading-font-family);
+    --dr-modal-heading-font-size: var(--dr-container-heading-font-size);
+    --dr-modal-heading-font-weight: var(--dr-container-heading-font-weight);
+    --dr-modal-heading-line-height: var(--dr-container-heading-line-height);
+
+    --dr-modal-close-button-background: none;
+    --dr-modal-close-button-color:#666;
+    --dr-modal-close-button-background-color: var(--dr-action-bar-item-background);
+    --dr-modal-close-button-hover-background: var(--dr-action-bar-item-hover-background);
+    --dr-modal-close-button-hover-color: var(--dr-modal-content-ink);
+    --dr-modal-close-button-gap: var(--dr-action-bar-item-gap);
+    --dr-modal-close-button-border-radius: var(--dr-action-bar-item-border-radius);
+    --dr-modal-close-button-padding-y: .25rem;
+    --dr-modal-close-button-padding-x: .5rem;
+    --dr-modal-close-button-font-family: var(--dr-action-bar-item-font-family);
+    --dr-modal-close-button-font-size: var(--dr-action-bar-item-font-size);
+    --dr-modal-close-button-font-weight: var(--dr-action-bar-item-font-weight);
+    --dr-modal-close-button-icon-stroke-width: var(--dr-action-bar-button-icon-stroke-width);
+    --dr-modal-close-button-icon-size: var(--dr-action-bar-button-icon-size);
 
 
 
-    --dr-table-background: white;
+    --dr-table-background: var(--dr-modal-content-background);
     --dr-table-stripe-background: #eaeaea;
-    --dr-table-border-color: lightgray;
+    --dr-table-border-color: var(--dr-container-border-color);
     --dr-table-border-width: 0;
     --dr-table-border-radius: 0;
     --dr-table-row-gap: .125rem;
     --dr-table-col-gap: 0;
-    --dr-table-ink: #333;
-    --dr-table-stripe-ink: #333;
-    --dr-table-font-family: Verdana, Geneva, sans-serif;
+    --dr-table-ink: var(--dr-modal-content-ink);
+    --dr-table-stripe-ink: var(--dr-modal-content-ink);
+    --dr-table-font-family: var(--dr-container-content-font-family);
     --dr-table-numeral-font-family: var(--dr-numeral-font-family);
     --dr-table-font-size: 1rem;
-    --dr-table-font-weight: 400;
-    --dr-table-line-height: 150%;
-    --dr-table-header-background: #222FBF;
+    --dr-table-font-weight: var(--dr-container-content-font-weight);
+    --dr-table-line-height: var(--dr-container-content-line-height);
+    --dr-table-header-background: #4e4e4e;
     --dr-table-header-ink: white;
     --dr-table-header-font-size: .875rem;
     --dr-table-header-font-weight: 600;
@@ -70,8 +73,8 @@
     --dr-table-header-padding-x: var(--dr-table-cell-padding-x);
     --dr-table-cell-padding-y: .5rem;
     --dr-table-cell-padding-x: .5rem;
-    --dr-table-footer-background: #2e2e2e;
-    --dr-table-footer-ink: white;
+    --dr-table-footer-background: var(--dr-table-header-background);
+    --dr-table-footer-ink: var(--dr-table-header-ink);
     --dr-table-footer-font-size:  var(--dr-table-font-size);
     --dr-table-footer-font-weight: var(--dr-table-font-weight);
     --dr-table-footer-line-height:var(--dr-table-line-height);
@@ -90,18 +93,27 @@
     --dr-container-border-color: lightgray;
     --dr-container-border-width: .125rem;
     --dr-container-border-radius: .5rem;
-
+    --dr-container-content-font-family: Verdana, Geneva, sans-serif;
+    --dr-container-content-font-size: 1.125rem;
+    --dr-container-content-line-height: 150%;
+    --dr-container-content-font-weight: 400;
+    --dr-container-heading-font-family: Verdana, Geneva, sans-serif;
+    --dr-container-heading-font-size: 2em;
+    --dr-container-heading-font-weight: 600;
+    --dr-container-heading-line-height: 125%;
+    --dr-numeral-font-family:var(--dr-container-content-font-family);
 
     --dr-action-bar-padding-y: .5rem;
     --dr-action-bar-padding-x: 1.5rem;
     --dr-action-bar-gap: 1rem;
+    --dr-action-bar-item-background: transparent;
     --dr-action-bar-item-hover-background: #eaeaea;
     --dr-action-bar-item-gap: .325rem;
     --dr-action-bar-item-border-radius: .25rem;
     --dr-action-bar-item-padding-y: .25rem;
     --dr-action-bar-item-padding-x: .5rem;
-    --dr-action-bar-item-font-family: Verdana, Geneva, sans-serif;
-    --dr-action-bar-item-font-size: 1.125rem;
+    --dr-action-bar-item-font-family: var(--dr-container-content-font-family);
+    --dr-action-bar-item-font-size: var(--dr-container-content-font-size);
     --dr-action-bar-item-font-weight: 500;
     --dr-action-bar-button-color: #222FBF;
     --dr-action-bar-button-icon-stroke-width: 2;
@@ -118,14 +130,14 @@
     --dr-action-bar-item-outline-offset: 0px;
 
 
-    --dr-heading-font-family: Verdana, Geneva, sans-serif;
-    --dr-heading-font-size: 2em;
-    --dr-heading-font-weight: 600;
-    --dr-heading-line-height: 125%;
-    --dr-insight-font-family: Verdana, Geneva, sans-serif;
-    --dr-insight-font-size: 1.25rem;
-    --dr-insight-font-weight: 400;
-    --dr-insight-line-height: 150%;
+    --dr-title-font-family: var(--dr-container-heading-font-family);
+    --dr-title-font-size: var(--dr-container-heading-font-size);
+    --dr-title-font-weight: var(--dr-container-heading-font-weight);
+    --dr-title-line-height: var(--dr-container-heading-line-height);
+    --dr-insight-font-family: var(--dr-container-content-font-family);
+    --dr-insight-font-size:  var(--dr-container-content-font-size);
+    --dr-insight-font-weight: var(--dr-container-content-font-weight);
+    --dr-insight-line-height: var(--dr-container-content-line-height);
 
 
     --dr-series-group-padding-y: 1rem;
@@ -136,27 +148,26 @@
     --dr-series-item-min-width: .125rem;
     --dr-series-item-border-radius: 0;
     --dr-series-item-flex-amount: 1;
-    --dr-series-item-font-family: Verdana, Geneva, sans-serif;
-    --dr-numeral-font-family: Verdana, Geneva, sans-serif;
-    --dr-series-label-font-size: 1.125rem;
+    --dr-series-item-font-family: var(--dr-container-content-font-family);
+    --dr-series-label-font-size: var(--dr-container-content-font-size);
     --dr-series-label-font-weight: 600;
-    --dr-series-label-line-height: 150%;
+    --dr-series-label-line-height: var(--dr-container-content-line-height);
     --dr-series-definition-font-size: 1rem;
-    --dr-series-definition-font-weight: 400;
-    --dr-series-definition-line-height: 150%;
+    --dr-series-definition-font-weight: var(--dr-container-content-font-weight);
+    --dr-series-definition-line-height: var(--dr-container-content-line-height);
     --dr-series-value-font-size: 1.25rem;
     --dr-series-value-font-weight: 600;
-    --dr-series-value-line-height: 150%;
+    --dr-series-value-line-height: var(--dr-container-content-line-height);
     --dr-series-percentage-font-size: 1rem;
     --dr-series-percentage-font-weight: 400;
-    --dr-series-percentage-line-height: 150%;
+    --dr-series-percentage-line-height:var(--dr-container-content-line-height);
     --dr-series-percentage-background: hsl(47, 86%, 90%);
 
 
-    --dr-plain-language-font-family: Verdana, Geneva, sans-serif;
-    --dr-plain-language-font-size: 1.125rem;
-    --dr-plain-language-font-weight: 400;
-    --dr-plain-language-line-height: 150%;
+    --dr-plain-language-font-family:  var(--dr-container-content-font-family);
+    --dr-plain-language-font-size:  var(--dr-container-content-font-size);
+    --dr-plain-language-font-weight: var(--dr-container-content-font-weight);
+    --dr-plain-language-line-height:var(--dr-container-content-line-height);
     --dr-plain-language-background: hsl(47, 86%, 90%);
     --dr-plain-language-color: var(--dr-container-ink);
     --dr-plain-language-padding-y: 1rem;

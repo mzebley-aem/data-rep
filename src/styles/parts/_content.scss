@@ -1,11 +1,11 @@
 
-.heading {
+.title {
     margin: 0;
-    font-size: var(--dr-heading-font-size);
-    font-weight: var(--dr-heading-font-weight);
-    line-height: var(--dr-heading-line-height);
+    font-size: var(--dr-title-font-size);
+    font-weight: var(--dr-title-font-weight);
+    line-height: var(--dr-title-line-height);
     padding: 0 var(--dr-padding-x);
-    font-family: var(--dr-heading-font-family);
+    font-family: var(--dr-title-font-family);
 }
 
 .insight,

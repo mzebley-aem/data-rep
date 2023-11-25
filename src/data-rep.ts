@@ -60,7 +60,7 @@ export class DataRep extends LitElement {
   private firstFocusableElement: HTMLElement | null = null;
   private lastFocusableElement: HTMLElement | null = null;
   private focusableElementsString =
-    'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
+    'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable], li[tabindex="0"], li[tabindex="-1"]';
 
   constructor() {
     super();
@@ -122,10 +122,10 @@ export class DataRep extends LitElement {
     }
 
     return html`
-      <article>
+      <article class="data-rep-wrapper">
         ${this.useH1
-          ? html`<h1 class="heading">${this.header}</h1>`
-          : html`<h2 class="heading">${this.header}</h2>`}
+          ? html`<h1 class="title">${this.header}</h1>`
+          : html`<h2 class="title">${this.header}</h2>`}
         <p class="insight">
           ${this.isHtml(this.insight) ? unsafeHTML(this.insight) : this.insight}
         </p>
@@ -143,14 +143,29 @@ export class DataRep extends LitElement {
                 <span class="toggle-track">
                   <span class="toggle-indicator">
                     <span class="check-mark">
-                      <svg xmlns="http://www.w3.org/2000/svg" id="${this.uniqueIdPrefix}explanation-svg-check" role="presentation" aria-hidden="true" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        id="${this.uniqueIdPrefix}explanation-svg-check"
+                        role="presentation"
+                        aria-hidden="true"
+                        viewBox="0 0 448 512"
+                      >
+                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                        <path
+                          d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+                        />
+                      </svg>
                     </span>
                   </span>
                 </span>
                 Explain
               </label>
             </li>
-            <li class="action-item" hidden="${!this.showGlossaryBtn}" @click=${this.toggleGlossary}>
+            <li
+              class="action-item"
+              hidden="${!this.showGlossaryBtn}"
+              @click=${this.toggleGlossary}
+            >
               <label for="${this.uniqueIdPrefix}glossarySwitch">
                 <input
                   type="checkbox"
@@ -161,7 +176,18 @@ export class DataRep extends LitElement {
                 <span class="toggle-track">
                   <span class="toggle-indicator">
                     <span class="check-mark">
-                      <svg xmlns="http://www.w3.org/2000/svg" id="${this.uniqueIdPrefix}glossary-svg-check" role="presentation" aria-hidden="true" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        id="${this.uniqueIdPrefix}glossary-svg-check"
+                        role="presentation"
+                        aria-hidden="true"
+                        viewBox="0 0 448 512"
+                      >
+                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                        <path
+                          d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+                        />
+                      </svg>
                     </span>
                   </span>
                 </span>
@@ -171,7 +197,8 @@ export class DataRep extends LitElement {
           </ul>
           <button
             id="${this.uniqueIdPrefix}data-modal-button"
-            @click=${this.openDataModal}
+            @click=${() =>
+              this.openDataModal(this.uniqueIdPrefix + "data-modal")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -271,7 +298,7 @@ export class DataRep extends LitElement {
           >
         </p>
       </article>
-      <section
+      <article
         id="${this.uniqueIdPrefix}data-modal"
         class="modal"
         role="dialog"
@@ -279,67 +306,57 @@ export class DataRep extends LitElement {
         aria-labelledby="${this.uniqueIdPrefix}dataModalTitle"
         hidden
       >
-        <div class="modal-content" role="document">
+        <section class="modal-content" role="document">
           <button
             id="${this.uniqueIdPrefix}closeModalButton"
+            class="close-modal"
             @click=${this.closeModal}
           >
             Close
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-x"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M18 6l-12 12" />
-              <path d="M6 6l12 12" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+              <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+              <path
+                d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+              />
             </svg>
           </button>
-          <h2 id="${this.uniqueIdPrefix}dataModalTitle">
+          <h2 id="${this.uniqueIdPrefix}dataModalTitle" class="modal-title">
             ${this.header ?? "Title"}
           </h2>
           <p class="description">${unsafeHTML(this.insight ?? "Insights")}</p>
-          <div
+          <ul
             class="data-table"
             role="table"
             aria-label="Descriptive Table Name"
           >
-            <div role="row" class="flex-row header-row">
-              <div role="columnheader" class="th label">Label</div>
-              <div role="columnheader" class="th percentage">%</div>
-              <div role="columnheader" class="th value">Value</div>
-            </div>
+            <li role="row" class="flex-row header-row" tabindex="0">
+              <span role="columnheader" class="th percentage">%</span>
+              <span role="columnheader" class="th label">Label</span>
+              <span role="columnheader" class="th value">Value</span>
+            </li>
             ${this.data
               ? this.data.map(
-                  (item) => html` <div role="row" class="flex-row">
-                    <div role="cell" class="td label">${item.label}</div>
-                    <div role="cell" class="td percentage">
+                  (item) => html` <li role="row" tabindex="0" class="flex-row">
+                    <span role="cell" class="td percentage">
                       ${item.percentage
-                        ? item.percentage.toLocaleString(this.localization, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })
-                        : 0}%
-                    </div>
-                    <div role="cell" class="td value">
-                      <strong
-                        >${item.value.toLocaleString(this.localization, {
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 0,
-                        })}</strong
-                      >
-                    </div>
-                  </div>`
+                          ? item.percentage.toLocaleString(this.localization, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })
+                          : 0}%
+                    </span>
+                    <span role="cell" class="td label">${item.label}</span>
+                    <span role="cell" class="td value">
+                      ${item.value.toLocaleString(this.localization, {
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0,
+                      })}
+                    </span>
+                  </li>`
                 )
               : null}
-            <div role="row" class="flex-row footer-row">
-              <div role="tablefooter" class="tf">
+            <li role="row" tabindex="0" class="flex-row footer-row">
+              <span role="tablefooter" class="tf">
                 Total:
                 <strong
                   >${this.total.toLocaleString(this.localization, {
@@ -347,11 +364,11 @@ export class DataRep extends LitElement {
                     maximumFractionDigits: 0,
                   })}</strong
                 >
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+              </span>
+            </li>
+          </ul>
+        </section>
+      </article>
     `;
   }
 
@@ -406,8 +423,6 @@ export class DataRep extends LitElement {
   // instance, causing it to re-render
 
   togglePlainLanguage() {
-    // this.showExplanation = !this.showExplanation;
-
     // Create references to the elements we'll need to manipulate
     const glossarySwitch = this.shadowRoot!.getElementById(
       this.uniqueIdPrefix + "glossarySwitch"
@@ -488,7 +503,6 @@ export class DataRep extends LitElement {
   };
 
   toggleGlossary() {
-    // this.showGlossary = !this.showGlossary;
     const glossarySwitch = this.shadowRoot!.getElementById(
       this.uniqueIdPrefix + "glossarySwitch"
     ) as HTMLInputElement;
@@ -499,19 +513,23 @@ export class DataRep extends LitElement {
 
     // Cycle through all .definition elements and add set aria-expanded to true
     definitions.forEach((definition: HTMLElement) => {
-      definition.setAttribute("aria-expanded", glossarySwitch.checked.toString());
+      definition.setAttribute(
+        "aria-expanded",
+        glossarySwitch.checked.toString()
+      );
       definition.hidden = !glossarySwitch.checked;
     });
   }
 
-  openDataModal() {
+  openDataModal(id: string) {
     this.previouslyFocusedElement = this.shadowRoot!
       .activeElement as HTMLElement;
 
-    const modal = this.shadowRoot!.getElementById("data-modal") as HTMLElement;
+    const modal = this.shadowRoot!.getElementById(id) as HTMLElement;
 
-    const closeModalButton =
-      this.shadowRoot!.getElementById("closeModalButton");
+    const closeModalButton = this.shadowRoot!.getElementById(
+      this.uniqueIdPrefix + "closeModalButton"
+    );
 
     modal.hidden = false;
     let focusableElements = modal.querySelectorAll(
@@ -525,10 +543,14 @@ export class DataRep extends LitElement {
   }
 
   closeModal() {
-    const modal = this.shadowRoot!.getElementById("data-modal") as HTMLElement;
-    modal.hidden = true;
+    const modals = this.shadowRoot!.querySelectorAll(
+      ".modal"
+    ) as NodeListOf<HTMLElement>;
+    modals.forEach((modal: HTMLElement) => {
+      modal.hidden = true;
+      modal.removeEventListener("keydown", this.trapTabKey);
+    });
     this.previouslyFocusedElement!.focus(); // Return focus to the element that opened the modal
-    modal.removeEventListener("keydown", this.trapTabKey);
   }
 
   trapTabKey = (event: KeyboardEvent) => {

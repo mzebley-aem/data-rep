@@ -42,7 +42,7 @@
     button,
     li.action-item {
         color: var(--dr-action-bar-button-color);
-        background-color: unset;
+        background-color: var(--dr-action-bar-item-background);
         background: none;
         border: none;
         display: flex;

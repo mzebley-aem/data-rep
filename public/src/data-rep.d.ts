@@ -33,7 +33,7 @@ export declare class DataRep extends LitElement {
     handleTabFromPlainLanguageBtn: (event: KeyboardEvent) => void;
     handleTabFromGlossaryBtn: (event: KeyboardEvent) => void;
     toggleGlossary(): void;
-    openDataModal(): void;
+    openDataModal(id: string): void;
     closeModal(): void;
     trapTabKey: (event: KeyboardEvent) => void;
 }

@@ -70,7 +70,7 @@
 
 .data-table .td.percentage, .data-table .th.percentage {
     flex-basis:12%;
-    text-align: right;
+    flex-shrink: 0;
 }
 
 .data-table .td.percentage {
@@ -79,6 +79,7 @@
 
 .data-table .td.value, .data-table .th.value {
     flex-basis:28%;
+    flex-shrink: 0;
     text-align: right;
 }
 
