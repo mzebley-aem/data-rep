@@ -18,7 +18,7 @@ export default {
         litCss(),
         terser({
             safari10: true,
-            ecma: 2015
+            ecma: 2020
         })
     ]
 };
