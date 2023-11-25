@@ -11,7 +11,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "outDir": "dist",
+    "outDir": "public",
     "sourceMap": true,
     "inlineSources": true,
     "rootDir": "./",
