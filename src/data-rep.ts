@@ -117,26 +117,39 @@ export class DataRep extends LitElement {
         item.percentage = (item.value / this.total) * 100;
         item.largest = item.value === largestValue;
         item.flexAmount = item.value / largestValue;
-        definitionIds.push(this.uniqueIdPrefix + "series-item-definition-" + index);
+        definitionIds.push(
+          this.uniqueIdPrefix + "series-item-definition-" + index
+        );
         return item;
       });
       // Sort the array from largest to smallest
       this.data.sort((a, b) => b.value - a.value);
-      this.definitionIdsString = definitionIds.join(", ");
+      this.definitionIdsString = definitionIds.join(" ");
     }
 
     return html`
-      <article class="data-rep-wrapper" aria-labelledby="${this.uniqueIdPrefix}title" aria-describedby="${this.uniqueIdPrefix}insight">
+      <article
+        class="data-rep-wrapper"
+        aria-labelledby="${this.uniqueIdPrefix}title"
+        aria-describedby="${this.uniqueIdPrefix}insight ${this.uniqueIdPrefix}total"
+      >
         ${this.useH1
-          ? html`<h1 id="${this.uniqueIdPrefix}title" class="title">${this.header}</h1>`
-          : html`<h2 id="${this.uniqueIdPrefix}title" class="title">${this.header}</h2>`}
+          ? html`<h1 id="${this.uniqueIdPrefix}title" class="title">
+              ${this.header}
+            </h1>`
+          : html`<h2 id="${this.uniqueIdPrefix}title" class="title">
+              ${this.header}
+            </h2>`}
         <p id="${this.uniqueIdPrefix}insight" class="insight">
           ${this.isHtml(this.insight) ? unsafeHTML(this.insight) : this.insight}
         </p>
         <div class="action-bar">
           <ul role="group" aria-label="Data representation action options">
-            <li  @click=${this.togglePlainLanguage}>
-              <label class="action-item" for="${this.uniqueIdPrefix}explanation-switch">
+            <li @click=${this.togglePlainLanguage}>
+              <label
+                class="action-item"
+                for="${this.uniqueIdPrefix}explanation-switch"
+              >
                 <input
                   type="checkbox"
                   id="${this.uniqueIdPrefix}explanation-switch"
@@ -165,12 +178,11 @@ export class DataRep extends LitElement {
                 Explain
               </label>
             </li>
-            <li
-              
-              hidden="${!this.showGlossaryBtn}"
-              @click=${this.toggleGlossary}
-            >
-              <label class="action-item" for="${this.uniqueIdPrefix}glossary-switch">
+            <li hidden="${!this.showGlossaryBtn}" @click=${this.toggleGlossary}>
+              <label
+                class="action-item"
+                for="${this.uniqueIdPrefix}glossary-switch"
+              >
                 <input
                   type="checkbox"
                   id="${this.uniqueIdPrefix}glossary-switch"
@@ -199,31 +211,40 @@ export class DataRep extends LitElement {
                 Glossary
               </label>
             </li>
+            <li>
+              <button
+                id="${this.uniqueIdPrefix}data-modal-button"
+                @click=${() =>
+                  this.openDataModal(this.uniqueIdPrefix + "data-modal")}
+                aria-label="Open data modal"
+                aria-controls="${this.uniqueIdPrefix}data-modal"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon icon-tabler icon-tabler-table"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path
+                    d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z"
+                  ></path>
+                  <path d="M3 10h18"></path>
+                  <path d="M10 3v18"></path>
+                </svg>
+                Data
+              </button>
+            </li>
           </ul>
+
           <button
-            id="${this.uniqueIdPrefix}data-modal-button"
-            @click=${() =>
-              this.openDataModal(this.uniqueIdPrefix + "data-modal")}
+            aria-label="Open share modal"
+            aria-controls="${this.uniqueIdPrefix}share-modal"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-table"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path
-                d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z"
-              ></path>
-              <path d="M3 10h18"></path>
-              <path d="M10 3v18"></path>
-            </svg>
-            Data
-          </button>
-          <button>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="icon icon-tabler icon-tabler-share-3"
@@ -232,6 +253,7 @@ export class DataRep extends LitElement {
               fill="none"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path
@@ -247,29 +269,53 @@ export class DataRep extends LitElement {
           aria-expanded="false"
           tabindex="-1"
           hidden="true"
+          aria-label="Plain language summary"
         >
           ${unsafeHTML(
             this.explanation ?? "Error generating plain language summary."
           )}
         </div>
-        <ol id="${this.uniqueIdPrefix}series" class="series">
+        <ol id="${this.uniqueIdPrefix}series" class="series" aria-label="Data series">
           ${this.data
             ? this.data.map(
                 (item, index) => html`
-                  <li tabindex="0" id="${this.uniqueIdPrefix}series-item-${index}" aria-describedby="${this.uniqueIdPrefix}series-item-label-${index} ${this.uniqueIdPrefix}-series-item-percentage-${index} ${this.uniqueIdPrefix}-series-item-value-${index}">
+                  <li
+                    tabindex="0"
+                    id="${this.uniqueIdPrefix}series-item-${index}"
+                    aria-describedby="${this
+                      .uniqueIdPrefix}series-item-label-${index} ${this
+                      .uniqueIdPrefix}-series-item-percentage-${index} ${this
+                      .uniqueIdPrefix}-series-item-value-${index}"
+                  >
                     <span class="content">
-                      <p class="label" id="${this.uniqueIdPrefix}series-item-label-${index}">${item.label}</p>
-                      <p class="definition" id="${this.uniqueIdPrefix}series-item-definition-${index}" aria-expanded="false" hidden="true">
+                      <p
+                        class="label"
+                        id="${this.uniqueIdPrefix}series-item-label-${index}"
+                      >
+                        ${item.label}
+                      </p>
+                      <p
+                        class="definition"
+                        id="${this
+                          .uniqueIdPrefix}series-item-definition-${index}"
+                        aria-expanded="false"
+                        hidden="true"
+                      >
                         ${unsafeHTML(item.definition ?? "Not defined.")}
                       </p>
                     </span>
                     <div class="bar-wrapper">
-                      <div class="bar"
+                      <div
+                        class="bar"
                         style="--dr-series-item-flex-amount:${item.flexAmount}"
                         aria-hidden="true"
                       ></div>
                       <ul class="details">
-                        <li class="percentage" id="${this.uniqueIdPrefix}series-item-percentage-${index}">
+                        <li
+                          class="percentage"
+                          id="${this
+                            .uniqueIdPrefix}series-item-percentage-${index}"
+                        >
                           ${item.percentage
                             ? item.percentage.toLocaleString(
                                 this.localization,
@@ -280,7 +326,10 @@ export class DataRep extends LitElement {
                               )
                             : 0}%
                         </li>
-                        <li class="value" id="${this.uniqueIdPrefix}series-item-value-${index}">
+                        <li
+                          class="value"
+                          id="${this.uniqueIdPrefix}series-item-value-${index}"
+                        >
                           ${item.value.toLocaleString(this.localization, {
                             minimumFractionDigits: 0,
                             maximumFractionDigits: 0,
@@ -293,7 +342,7 @@ export class DataRep extends LitElement {
               )
             : null}
         </ol>
-        <p class="total" tabindex="0">
+        <p class="total" tabindex="0" id="${this.uniqueIdPrefix}total">
           Total:
           <strong
             >${this.total.toLocaleString(this.localization, {
@@ -344,11 +393,11 @@ export class DataRep extends LitElement {
                   (item) => html` <li role="row" tabindex="0" class="flex-row">
                     <span role="cell" class="td percentage">
                       ${item.percentage
-                          ? item.percentage.toLocaleString(this.localization, {
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            })
-                          : 0}%
+                        ? item.percentage.toLocaleString(this.localization, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })
+                        : 0}%
                     </span>
                     <span role="cell" class="td label">${item.label}</span>
                     <span role="cell" class="td value">

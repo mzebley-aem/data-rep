@@ -68,7 +68,7 @@
     --dr-table-header-ink: white;
     --dr-table-header-font-size: .875rem;
     --dr-table-header-font-weight: 600;
-    --dr-table-header-line-height: 150%;
+    --dr-table-header-line-height: 1.5;
     --dr-table-header-padding-y: var(--dr-table-cell-padding-y);
     --dr-table-header-padding-x: var(--dr-table-cell-padding-x);
     --dr-table-cell-padding-y: .5rem;
@@ -95,12 +95,12 @@
     --dr-container-border-radius: .5rem;
     --dr-container-content-font-family: Verdana, Geneva, sans-serif;
     --dr-container-content-font-size: 1.125rem;
-    --dr-container-content-line-height: 150%;
+    --dr-container-content-line-height: 1.5;
     --dr-container-content-font-weight: 400;
     --dr-container-heading-font-family: Verdana, Geneva, sans-serif;
     --dr-container-heading-font-size: 2em;
     --dr-container-heading-font-weight: 600;
-    --dr-container-heading-line-height: 125%;
+    --dr-container-heading-line-height: 1.25;
     --dr-numeral-font-family:var(--dr-container-content-font-family);
 
     --dr-action-bar-padding-y: .5rem;
