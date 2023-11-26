@@ -440,7 +440,7 @@ export class DataRep extends LitElement {
     );
     explanationRegion.hidden = !explanationSwitch.checked;
 
-    if (this.showExplanation) {
+    if (explanationSwitch.checked) {
       explanationRegion.addEventListener("keydown", this.handleTabFromPanel);
       explanationSwitch.addEventListener(
         "keydown",
