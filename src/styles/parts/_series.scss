@@ -6,6 +6,66 @@ ol.series {
     gap: var(--dr-series-group-gap);
     margin: 0;
     list-style: none;
+    li {
+        display: flex;
+        flex-direction: column;
+        gap: var(--dr-series-item-gap);
+        font-family: var(--dr-series-item-font-family);
+        align-items: flex-start;
+        width: 100%;
+        .label {
+            font-size: var(--dr-series-label-font-size);
+            font-weight: var(--dr-series-label-font-weight);
+            line-height: var(--dr-series-label-line-height);
+            margin: 0;
+        }
+        .definition {
+            font-size: var(--dr-series-definition-font-size);
+            font-weight: var(--dr-series-definition-font-weight);
+            line-height: var(--dr-series-definition-line-height);
+            margin: 0;
+        }
+        
+.bar-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: var(--dr-series-item-gap);
+    width: 100%;
+    .bar {
+        flex: var(--dr-series-item-flex-amount);
+        background: var(--dr-series-item-background);
+        border-radius: var(--dr-series-item-border-radius);
+        min-width: var(--dr-series-item-min-width);
+    }
+    .details {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: calc(var(--dr-series-item-gap) / 2);
+        .percentage {
+            font-family: var(--dr-numeral-font-family);
+            font-size: var(--dr-series-percentage-font-size);
+            font-weight: var(--dr-series-percentage-font-weight);
+            line-height: var(--dr-series-percentage-line-height);
+            margin: 0;
+            padding: 0 calc(var(--dr-series-item-gap) / 2);
+            background-color: var(--dr-series-percentage-background);
+        }
+        .value {
+            font-family: var(--dr-numeral-font-family);
+            font-size: var(--dr-series-value-font-size);
+            font-weight: var(--dr-series-value-font-weight);
+            line-height: var(--dr-series-value-line-height);
+            margin: 0;
+        }
+    }
+}
+    }
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--dr-series-item-gap) / 2);
+    }
 }
 
 ul {
@@ -13,70 +73,3 @@ ul {
     margin: 0;
 }
 
-ol.series li {
-    display: flex;
-    flex-direction: column;
-    gap: var(--dr-series-item-gap);
-    font-family: var(--dr-series-item-font-family);
-    align-items: flex-start;
-    width: 100%;
-}
-
-.content {
-    display: flex;
-    flex-direction: column;
-    gap: calc(var(--dr-series-item-gap) / 2);
-}
-
-ol.series li .label {
-    font-size: var(--dr-series-label-font-size);
-    font-weight: var(--dr-series-label-font-weight);
-    line-height: var(--dr-series-label-line-height);
-    margin: 0;
-}
-
-ol.series li .definition {
-    font-size: var(--dr-series-definition-font-size);
-    font-weight: var(--dr-series-definition-font-weight);
-    line-height: var(--dr-series-definition-line-height);
-    margin: 0;
-}
-
-.bar-wrapper {
-    display: flex;
-    flex-direction: row;
-    gap: var(--dr-series-item-gap);
-    width: 100%;
-}
-
-.bar-wrapper .bar {
-    flex: var(--dr-series-item-flex-amount);
-    background: var(--dr-series-item-background);
-    border-radius: var(--dr-series-item-border-radius);
-    min-width: var(--dr-series-item-min-width);
-}
-
-.bar-wrapper .details {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: calc(var(--dr-series-item-gap) / 2);
-}
-
-.bar-wrapper .details .percentage {
-    font-family: var(--dr-numeral-font-family);
-    font-size: var(--dr-series-percentage-font-size);
-    font-weight: var(--dr-series-percentage-font-weight);
-    line-height: var(--dr-series-percentage-line-height);
-    margin: 0;
-    padding: 0 calc(var(--dr-series-item-gap) / 2);
-    background-color: var(--dr-series-percentage-background);
-}
-
-.bar-wrapper .details .value {
-    font-family: var(--dr-numeral-font-family);
-    font-size: var(--dr-series-value-font-size);
-    font-weight: var(--dr-series-value-font-weight);
-    line-height: var(--dr-series-value-line-height);
-    margin: 0;
-}

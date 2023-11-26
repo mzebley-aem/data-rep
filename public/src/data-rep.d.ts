@@ -24,6 +24,7 @@ export declare class DataRep extends LitElement {
     private firstFocusableElement;
     private lastFocusableElement;
     private focusableElementsString;
+    private definitionIdsString;
     constructor();
     render(): import("lit-html").TemplateResult<1>;
     isHtml(str: string | undefined): boolean;

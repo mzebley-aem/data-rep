@@ -61,6 +61,7 @@ export class DataRep extends LitElement {
   private lastFocusableElement: HTMLElement | null = null;
   private focusableElementsString =
     'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable], li[tabindex="0"], li[tabindex="-1"]';
+  private definitionIdsString: string = "";
 
   constructor() {
     super();
@@ -106,37 +107,40 @@ export class DataRep extends LitElement {
         this.data[0].value
       );
 
+      const definitionIds: string[] = [];
+
       // Calculate percentages and flex amount based on largest value
       // Flex amount is determined by dividing the item's value by the largest value
       // In the visual representation, the largest value fills the full width of the chart
       // effectively setting itself as "100%"
-      this.data = this.data.map((item) => {
+      this.data = this.data.map((item, index) => {
         item.percentage = (item.value / this.total) * 100;
         item.largest = item.value === largestValue;
         item.flexAmount = item.value / largestValue;
+        definitionIds.push(this.uniqueIdPrefix + "series-item-definition-" + index);
         return item;
       });
       // Sort the array from largest to smallest
       this.data.sort((a, b) => b.value - a.value);
-      // console.log(this.data);
+      this.definitionIdsString = definitionIds.join(", ");
     }
 
     return html`
-      <article class="data-rep-wrapper">
+      <article class="data-rep-wrapper" aria-labelledby="${this.uniqueIdPrefix}title" aria-describedby="${this.uniqueIdPrefix}insight">
         ${this.useH1
-          ? html`<h1 class="title">${this.header}</h1>`
-          : html`<h2 class="title">${this.header}</h2>`}
-        <p class="insight">
+          ? html`<h1 id="${this.uniqueIdPrefix}title" class="title">${this.header}</h1>`
+          : html`<h2 id="${this.uniqueIdPrefix}title" class="title">${this.header}</h2>`}
+        <p id="${this.uniqueIdPrefix}insight" class="insight">
           ${this.isHtml(this.insight) ? unsafeHTML(this.insight) : this.insight}
         </p>
         <div class="action-bar">
           <ul role="group" aria-label="Data representation action options">
             <li  @click=${this.togglePlainLanguage}>
-              <label class="action-item" for="${this.uniqueIdPrefix}explanationSwitch">
+              <label class="action-item" for="${this.uniqueIdPrefix}explanation-switch">
                 <input
                   type="checkbox"
-                  id="${this.uniqueIdPrefix}explanationSwitch"
-                  aria-controls="${this.uniqueIdPrefix}explanationRegion"
+                  id="${this.uniqueIdPrefix}explanation-switch"
+                  aria-controls="${this.uniqueIdPrefix}explanation-region"
                   value=${this.showExplanation}
                   .checked=${this.showExplanation}
                 />
@@ -166,12 +170,13 @@ export class DataRep extends LitElement {
               hidden="${!this.showGlossaryBtn}"
               @click=${this.toggleGlossary}
             >
-              <label class="action-item" for="${this.uniqueIdPrefix}glossarySwitch">
+              <label class="action-item" for="${this.uniqueIdPrefix}glossary-switch">
                 <input
                   type="checkbox"
-                  id="${this.uniqueIdPrefix}glossarySwitch"
+                  id="${this.uniqueIdPrefix}glossary-switch"
                   value=${this.showGlossary}
                   .checked=${this.showGlossary}
+                  aria-controls="${this.definitionIdsString}"
                 />
                 <span class="toggle-track">
                   <span class="toggle-indicator">
@@ -238,7 +243,7 @@ export class DataRep extends LitElement {
         </div>
         <div
           class="plain-language"
-          id="${this.uniqueIdPrefix}explanationRegion"
+          id="${this.uniqueIdPrefix}explanation-region"
           aria-expanded="false"
           tabindex="-1"
           hidden="true"
@@ -250,21 +255,21 @@ export class DataRep extends LitElement {
         <ol id="${this.uniqueIdPrefix}series" class="series">
           ${this.data
             ? this.data.map(
-                (item) => html`
-                  <li tabindex="0">
-                    <div class="content">
-                      <p class="label">${item.label}</p>
-                      <p class="definition" aria-expanded="false" hidden="true">
+                (item, index) => html`
+                  <li tabindex="0" id="${this.uniqueIdPrefix}series-item-${index}" aria-describedby="${this.uniqueIdPrefix}series-item-label-${index} ${this.uniqueIdPrefix}-series-item-percentage-${index} ${this.uniqueIdPrefix}-series-item-value-${index}">
+                    <span class="content">
+                      <p class="label" id="${this.uniqueIdPrefix}series-item-label-${index}">${item.label}</p>
+                      <p class="definition" id="${this.uniqueIdPrefix}series-item-definition-${index}" aria-expanded="false" hidden="true">
                         ${unsafeHTML(item.definition ?? "Not defined.")}
                       </p>
-                    </div>
+                    </span>
                     <div class="bar-wrapper">
-                      <div
-                        class="bar"
+                      <div class="bar"
                         style="--dr-series-item-flex-amount:${item.flexAmount}"
+                        aria-hidden="true"
                       ></div>
                       <ul class="details">
-                        <li class="percentage">
+                        <li class="percentage" id="${this.uniqueIdPrefix}series-item-percentage-${index}">
                           ${item.percentage
                             ? item.percentage.toLocaleString(
                                 this.localization,
@@ -275,7 +280,7 @@ export class DataRep extends LitElement {
                               )
                             : 0}%
                         </li>
-                        <li class="value">
+                        <li class="value" id="${this.uniqueIdPrefix}series-item-value-${index}">
                           ${item.value.toLocaleString(this.localization, {
                             minimumFractionDigits: 0,
                             maximumFractionDigits: 0,
@@ -288,7 +293,7 @@ export class DataRep extends LitElement {
               )
             : null}
         </ol>
-        <p class="total">
+        <p class="total" tabindex="0">
           Total:
           <strong
             >${this.total.toLocaleString(this.localization, {
@@ -303,12 +308,12 @@ export class DataRep extends LitElement {
         class="modal"
         role="dialog"
         aria-modal="true"
-        aria-labelledby="${this.uniqueIdPrefix}dataModalTitle"
+        aria-labelledby="${this.uniqueIdPrefix}data-modal-title"
         hidden
       >
         <section class="modal-content" role="document">
           <button
-            id="${this.uniqueIdPrefix}closeModalButton"
+            id="${this.uniqueIdPrefix}close-modal-button"
             class="close-modal"
             @click=${this.closeModal}
           >
@@ -320,7 +325,7 @@ export class DataRep extends LitElement {
               />
             </svg>
           </button>
-          <h2 id="${this.uniqueIdPrefix}dataModalTitle" class="modal-title">
+          <h2 id="${this.uniqueIdPrefix}data-modal-title" class="modal-title">
             ${this.header ?? "Title"}
           </h2>
           <p class="description">${unsafeHTML(this.insight ?? "Insights")}</p>
@@ -425,13 +430,13 @@ export class DataRep extends LitElement {
   togglePlainLanguage() {
     // Create references to the elements we'll need to manipulate
     const glossarySwitch = this.shadowRoot!.getElementById(
-      this.uniqueIdPrefix + "glossarySwitch"
+      this.uniqueIdPrefix + "glossary-switch"
     ) as HTMLElement;
     const explanationSwitch = this.shadowRoot!.getElementById(
-      this.uniqueIdPrefix + "explanationSwitch"
+      this.uniqueIdPrefix + "explanation-switch"
     ) as HTMLInputElement;
     const explanationRegion = this.shadowRoot!.getElementById(
-      this.uniqueIdPrefix + "explanationRegion"
+      this.uniqueIdPrefix + "explanation-region"
     ) as HTMLElement;
 
     explanationRegion.setAttribute(
@@ -464,10 +469,10 @@ export class DataRep extends LitElement {
   handleTabFromPanel = (event: KeyboardEvent) => {
     // Handle forward tab (Tab without Shift)
     const glossarySwitch = this.shadowRoot!.getElementById(
-      this.uniqueIdPrefix + "glossarySwitch"
+      this.uniqueIdPrefix + "glossary-switch"
     ) as HTMLElement;
     const explanationSwitch = this.shadowRoot!.getElementById(
-      this.uniqueIdPrefix + "explanationSwitch"
+      this.uniqueIdPrefix + "explanation-switch"
     ) as HTMLElement;
     if (event.key === "Tab" && !event.shiftKey) {
       event.preventDefault();
@@ -483,7 +488,7 @@ export class DataRep extends LitElement {
   handleTabFromPlainLanguageBtn = (event: KeyboardEvent) => {
     // Handle forward tab (Tab without Shift)
     const explanationRegion = this.shadowRoot!.getElementById(
-      this.uniqueIdPrefix + "explanationRegion"
+      this.uniqueIdPrefix + "explanation-region"
     ) as HTMLElement;
     if (event.key === "Tab" && !event.shiftKey) {
       event.preventDefault();
@@ -494,7 +499,7 @@ export class DataRep extends LitElement {
   handleTabFromGlossaryBtn = (event: KeyboardEvent) => {
     // Handle backward tab (Shift + Tab)
     const explanationRegion = this.shadowRoot!.getElementById(
-      this.uniqueIdPrefix + "explanationRegion"
+      this.uniqueIdPrefix + "explanation-region"
     ) as HTMLElement;
     if (event.key === "Tab" && event.shiftKey) {
       event.preventDefault();
@@ -504,7 +509,7 @@ export class DataRep extends LitElement {
 
   toggleGlossary() {
     const glossarySwitch = this.shadowRoot!.getElementById(
-      this.uniqueIdPrefix + "glossarySwitch"
+      this.uniqueIdPrefix + "glossary-switch"
     ) as HTMLInputElement;
 
     const definitions = this.shadowRoot!.querySelectorAll(
@@ -528,7 +533,7 @@ export class DataRep extends LitElement {
     const modal = this.shadowRoot!.getElementById(id) as HTMLElement;
 
     const closeModalButton = this.shadowRoot!.getElementById(
-      this.uniqueIdPrefix + "closeModalButton"
+      this.uniqueIdPrefix + "close-modal-button"
     );
 
     modal.hidden = false;
