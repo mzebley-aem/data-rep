@@ -39,8 +39,12 @@
         }
     }
 
+    li {
+        display: flex;
+    }
+
     button,
-    li.action-item {
+    .action-item {
         color: var(--dr-action-bar-button-color);
         background-color: var(--dr-action-bar-item-background);
         background: none;
@@ -77,7 +81,7 @@
         }
     }
 
-    li.action-item {
+    .action-item {
         label {
             display: flex;
             align-items: center;

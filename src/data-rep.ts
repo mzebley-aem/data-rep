@@ -131,8 +131,8 @@ export class DataRep extends LitElement {
         </p>
         <div class="action-bar">
           <ul role="group" aria-label="Data representation action options">
-            <li class="action-item" @click=${this.togglePlainLanguage}>
-              <label for="${this.uniqueIdPrefix}explanationSwitch">
+            <li  @click=${this.togglePlainLanguage}>
+              <label class="action-item" for="${this.uniqueIdPrefix}explanationSwitch">
                 <input
                   type="checkbox"
                   id="${this.uniqueIdPrefix}explanationSwitch"
@@ -162,11 +162,11 @@ export class DataRep extends LitElement {
               </label>
             </li>
             <li
-              class="action-item"
+              
               hidden="${!this.showGlossaryBtn}"
               @click=${this.toggleGlossary}
             >
-              <label for="${this.uniqueIdPrefix}glossarySwitch">
+              <label class="action-item" for="${this.uniqueIdPrefix}glossarySwitch">
                 <input
                   type="checkbox"
                   id="${this.uniqueIdPrefix}glossarySwitch"
