@@ -145,7 +145,7 @@ export class DataRep extends LitElement {
           ${this.isHtml(this.insight) ? unsafeHTML(this.insight) : this.insight}
         </p>
         <div class="action-bar">
-          <ul role="group" aria-label="Data representation action options">
+          <ul role="group">
             <li @click=${this.togglePlainLanguage}>
               <label
                 class="action-item"
@@ -607,9 +607,7 @@ export class DataRep extends LitElement {
     ) as NodeListOf<HTMLElement>;
     this.firstFocusableElement = focusableElements[0];
     this.lastFocusableElement = focusableElements[focusableElements.length - 1];
-    console.log(focusableElements);
 
-    console.log(focusableElements);
     closeModalButton!.focus();
     modal.addEventListener("keydown", this.trapTabKey);
   }
@@ -641,7 +639,6 @@ export class DataRep extends LitElement {
     const deepActiveElement = this.getDeepActiveElement();
 
     if (event.key === "Tab") {
-      console.log("tab");
 
       if (event.shiftKey) {
         /* shift + tab */
