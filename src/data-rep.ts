@@ -245,6 +245,7 @@ export class DataRep extends LitElement {
           <button
             aria-label="Open share modal"
             aria-controls="${this.uniqueIdPrefix}share-modal"
+            disabled="true"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

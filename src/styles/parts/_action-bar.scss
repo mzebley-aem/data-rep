@@ -70,6 +70,12 @@
             outline-offset: var(--dr-action-bar-item-outline-offset);
         }
 
+        &[disabled] {
+            color: gray;
+            background-color: lightgrey;
+            cursor: not-allowed;
+        }
+
     }
 
     button {
