@@ -172,4 +172,9 @@
     --dr-plain-language-color: var(--dr-container-ink);
     --dr-plain-language-padding-y: 1rem;
     --dr-plain-language-padding-x: var(--dr-padding-x);
+    --dr-plain-language-title-font-size: var(--dr-plain-language-font-size);
+    --dr-plain-language-title-font-weight: var(--dr-container-heading-font-weight);
+    --dr-plain-language-title-line-height: var(--dr-container-heading-line-height);
+    --dr-plain-language-title-font-family: var(--dr-container-heading-font-family);
+
 }

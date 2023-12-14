@@ -36,6 +36,7 @@ export declare class DataRep extends LitElement {
     toggleGlossary(): void;
     openDataModal(id: string): void;
     closeModal(): void;
+    getDeepActiveElement: () => Element | null;
     trapTabKey: (event: KeyboardEvent) => void;
 }
 declare global {

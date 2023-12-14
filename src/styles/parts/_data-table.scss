@@ -1,8 +1,5 @@
-
 .data-table {
-    display: flex;
-    flex-direction: column;
-    gap: var(--dr-table-row-gap);
+    width: 100%;
     background-color: var(--dr-table-background);
     border-radius: var(--dr-table-border-radius);
     border: var(--dr-table-border-width) solid var(--dr-table-border-color);
@@ -11,78 +8,57 @@
     font-weight: var(--dr-table-font-weight);
     line-height: var(--dr-table-line-height);
     color: var(--dr-table-ink);
-}
+    border-collapse: collapse;
 
-.data-table .flex-row {
-    display: flex;
-    flex-direction: row;
-    gap: var(--dr-table-col-gap);
-   flex:1;
-    align-items: center;
-    border-bottom: var(--dr-table-border-width) solid var(--dr-table-border-color);
-}
+    th, td {
+        padding: var(--dr-table-cell-padding-y) var(--dr-table-cell-padding-x);
+        text-align: left;
+        border-bottom: var(--dr-table-border-width) solid var(--dr-table-border-color);
+    }
 
-.data-table .flex-row:nth-child(odd) {
-    background-color: var(--dr-table-stripe-background);
-    color: var(--dr-table-stripe-ink);
-}
+    th {
+        background-color: var(--dr-table-header-background);
+        color: var(--dr-table-header-ink);
+        font-size: var(--dr-table-header-font-size);
+        font-weight: var(--dr-table-header-font-weight);
+    }
 
-.data-table .flex-row:last-child {
-    border-bottom: none;
-}
+    tr {
+        &:nth-child(odd):not(.footer-row) {
+            background-color: var(--dr-table-stripe-background);
+        }
+        &:last-child td {
+            border-bottom: none;
+        }
+        &:focus {
+            z-index:99;
+        }
+    }
 
-.data-table .flex-row.header-row {
-    background-color: var(--dr-table-header-background);
-    color: var(--dr-table-header-ink);
-    font-size: var(--dr-table-header-font-size);
-    font-weight: var(--dr-table-header-font-weight);
-    line-height: var(--dr-table-header-line-height);
-    border-radius: calc(var(--dr-table-border-radius) - var(--dr-table-border-width)) calc(var(--dr-table-border-radius) - var(--dr-table-border-width)) 0 0;
-}
+    .label {
+        flex-basis: 60%;
+    }
 
-.data-table .flex-row.footer-row {
-    background-color: var(--dr-table-footer-background);
-    color: var(--dr-table-footer-ink);
-    font-size: var(--dr-table-footer-font-size);
-    font-weight: var(--dr-table-footer-font-weight);
-    line-height: var(--dr-table-footer-line-height);
-    border-radius: 0 0 calc(var(--dr-table-border-radius) - var(--dr-table-border-width)) calc(var(--dr-table-border-radius) - var(--dr-table-border-width));
-    justify-content: flex-end;
-    padding: var(--dr-table-footer-padding-y) var(--dr-table-footer-padding-x);
-}
+    .percentage {
+        flex-basis: 12%;
+        font-family: var(--dr-table-numeral-font-family);
+    }
 
-.data-table .flex-row.footer-row strong {
-    font-family: var(--dr-table-numeral-font-family); 
-}
+    .value {
+        flex-basis: 28%;
+        text-align: right;
+        font-family: var(--dr-table-numeral-font-family);
+    }
 
-.data-table .th {
-    padding: var(--dr-table-header-padding-y) var(--dr-table-header-padding-x);
-}
-
-.data-table .td {
-    padding: var(--dr-table-cell-padding-y) var(--dr-table-cell-padding-x);
-}
-
-.data-table .td.label, .data-table .th.label {
-    flex:1;
-    flex-basis:60%;
-}
-
-.data-table .td.percentage, .data-table .th.percentage {
-    flex-basis:12%;
-    flex-shrink: 0;
-}
-
-.data-table .td.percentage {
-    font-family: var(--dr-table-numeral-font-family);
-}
-
-.data-table .td.value, .data-table .th.value {
-    flex-basis:28%;
-    flex-shrink: 0;
-    text-align: right;
-}
-
-.data-table .td.value {
-    font-family: var(--dr-table-numeral-font-family);
+    tfoot {
+        tr {
+            background-color: var(--dr-table-footer-background);
+            color: var(--dr-table-footer-ink);
+            font-size: var(--dr-table-footer-font-size);
+            font-weight: var(--dr-table-footer-font-weight);
+            strong {
+                font-family: var(--dr-table-numeral-font-family); 
+            }
+        }
+    }
 }

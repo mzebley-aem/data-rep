@@ -28,4 +28,11 @@
     line-height: var(--dr-plain-language-line-height);
     margin: calc(var(--dr-container-gap) * -1) 0 0;
     border-bottom: var(--dr-container-border-width) solid var(--dr-container-border-color);
+    h3 {
+        margin: 0 0 var(--dr-container-gap);
+        font-size: var(--dr-plain-language-title-font-size);
+        font-weight: var(--dr-plain-language-title-font-weight);
+        line-height: var(--dr-plain-language-title-line-height);
+        font-family: var(--dr-plain-language-title-font-family);
+    }
 }

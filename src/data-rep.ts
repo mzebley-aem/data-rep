@@ -60,7 +60,7 @@ export class DataRep extends LitElement {
   private firstFocusableElement: HTMLElement | null = null;
   private lastFocusableElement: HTMLElement | null = null;
   private focusableElementsString =
-    'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable], li[tabindex="0"], li[tabindex="-1"]';
+    'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable], li[tabindex="0"], li[tabindex="-1"], tr[tabindex="0"], tr[tabindex="-1"]';
   private definitionIdsString: string = "";
 
   constructor() {
@@ -131,7 +131,8 @@ export class DataRep extends LitElement {
       <article
         class="data-rep-wrapper"
         aria-labelledby="${this.uniqueIdPrefix}title"
-        aria-describedby="${this.uniqueIdPrefix}insight ${this.uniqueIdPrefix}total"
+        aria-describedby="${this.uniqueIdPrefix}insight ${this
+          .uniqueIdPrefix}total"
       >
         ${this.useH1
           ? html`<h1 id="${this.uniqueIdPrefix}title" class="title">
@@ -271,11 +272,16 @@ export class DataRep extends LitElement {
           hidden="true"
           aria-label="Plain language summary"
         >
+          <h3 class="plain-language-title">Plain language summary</h3>
           ${unsafeHTML(
             this.explanation ?? "Error generating plain language summary."
           )}
         </div>
-        <ol id="${this.uniqueIdPrefix}series" class="series" aria-label="Data series">
+        <ol
+          id="${this.uniqueIdPrefix}series"
+          class="series"
+          aria-label="Data series"
+        >
           ${this.data
             ? this.data.map(
                 (item, index) => html`
@@ -378,49 +384,59 @@ export class DataRep extends LitElement {
             ${this.header ?? "Title"}
           </h2>
           <p class="description">${unsafeHTML(this.insight ?? "Insights")}</p>
-          <ul
+          <table
             class="data-table"
-            role="table"
-            aria-label="Descriptive Table Name"
+            aria-label="${this.header ?? "Title"} data table"
           >
-            <li role="row" class="flex-row header-row" tabindex="0">
-              <span role="columnheader" class="th percentage">%</span>
-              <span role="columnheader" class="th label">Label</span>
-              <span role="columnheader" class="th value">Value</span>
-            </li>
-            ${this.data
-              ? this.data.map(
-                  (item) => html` <li role="row" tabindex="0" class="flex-row">
-                    <span role="cell" class="td percentage">
-                      ${item.percentage
-                        ? item.percentage.toLocaleString(this.localization, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })
-                        : 0}%
-                    </span>
-                    <span role="cell" class="td label">${item.label}</span>
-                    <span role="cell" class="td value">
-                      ${item.value.toLocaleString(this.localization, {
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 0,
-                      })}
-                    </span>
-                  </li>`
-                )
-              : null}
-            <li role="row" tabindex="0" class="flex-row footer-row">
-              <span role="tablefooter" class="tf">
-                Total:
-                <strong
-                  >${this.total.toLocaleString(this.localization, {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0,
-                  })}</strong
-                >
-              </span>
-            </li>
-          </ul>
+            <thead>
+              <tr class="header-row">
+                <th class="th percentage">%</th>
+                <th class="th label">Label</th>
+                <th class="th value">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${this.data
+                ? this.data.map(
+                    (item) => html`
+                      <tr tabindex="0" class="flex-row">
+                        <td class="td percentage">
+                          ${item.percentage
+                            ? item.percentage.toLocaleString(
+                                this.localization,
+                                {
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }
+                              )
+                            : 0}%
+                        </td>
+                        <td class="td label">${item.label}</td>
+                        <td class="td value">
+                          ${item.value.toLocaleString(this.localization, {
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0,
+                          })}
+                        </td>
+                      </tr>
+                    `
+                  )
+                : null}
+            </tbody>
+            <tfoot>
+              <tr class="footer-row" tabindex="0">
+                <td colspan="3" class="tf">
+                  Total:
+                  <strong>
+                    ${this.total.toLocaleString(this.localization, {
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0,
+                    })}
+                  </strong>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
         </section>
       </article>
     `;
@@ -591,7 +607,9 @@ export class DataRep extends LitElement {
     ) as NodeListOf<HTMLElement>;
     this.firstFocusableElement = focusableElements[0];
     this.lastFocusableElement = focusableElements[focusableElements.length - 1];
+    console.log(focusableElements);
 
+    console.log(focusableElements);
     closeModalButton!.focus();
     modal.addEventListener("keydown", this.trapTabKey);
   }
@@ -607,17 +625,33 @@ export class DataRep extends LitElement {
     this.previouslyFocusedElement!.focus(); // Return focus to the element that opened the modal
   }
 
+  getDeepActiveElement = () => {
+    let activeElement = document.activeElement;
+    while (
+      activeElement &&
+      activeElement.shadowRoot &&
+      activeElement.shadowRoot.activeElement
+    ) {
+      activeElement = activeElement.shadowRoot.activeElement;
+    }
+    return activeElement;
+  };
+
   trapTabKey = (event: KeyboardEvent) => {
+    const deepActiveElement = this.getDeepActiveElement();
+
     if (event.key === "Tab") {
+      console.log("tab");
+
       if (event.shiftKey) {
-        /* shift + tab */ if (
-          document.activeElement === this.firstFocusableElement
-        ) {
+        /* shift + tab */
+        if (deepActiveElement === this.firstFocusableElement) {
           event.preventDefault();
           this.lastFocusableElement!.focus();
         }
-      } /* tab */ else {
-        if (document.activeElement === this.lastFocusableElement) {
+      } else {
+        /* tab */
+        if (deepActiveElement === this.lastFocusableElement) {
           event.preventDefault();
           this.firstFocusableElement!.focus();
         }
