@@ -3,14 +3,14 @@
     border-bottom: var(--dr-container-border-width) solid var(--dr-container-border-color);
     padding: var(--dr-action-bar-padding-y) var(--dr-action-bar-padding-x);
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--dr-action-bar-gap);
+
 
     ul {
         padding: 0;
         margin: 0;
         display:flex;
-        gap: var(--dr-action-bar-item-gap);
+        flex-wrap: wrap;
+        gap: var(--dr-action-bar-gap);
     }
 
     input[type="checkbox"] {
