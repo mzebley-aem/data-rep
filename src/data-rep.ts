@@ -240,30 +240,33 @@ export class DataRep extends LitElement {
                 Data
               </button>
             </li>
+            <li>
+              <button
+                aria-label="Open share modal"
+                aria-controls="${this.uniqueIdPrefix}share-modal"
+                disabled="true"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon icon-tabler icon-tabler-share-3"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path
+                    d="M13 4v4c-6.575 1.028 -9.02 6.788 -10 12c-.037 .206 5.384 -5.962 10 -6v4l8 -7l-8 -7z"
+                  ></path>
+                </svg>
+                Share
+              </button>
+            </li>
           </ul>
 
-          <button
-            aria-label="Open share modal"
-            aria-controls="${this.uniqueIdPrefix}share-modal"
-            disabled="true"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-share-3"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path
-                d="M13 4v4c-6.575 1.028 -9.02 6.788 -10 12c-.037 .206 5.384 -5.962 10 -6v4l8 -7l-8 -7z"
-              ></path>
-            </svg>
-            Share
-          </button>
+         
         </div>
         <div
           class="plain-language"
@@ -367,6 +370,7 @@ export class DataRep extends LitElement {
         aria-labelledby="${this.uniqueIdPrefix}data-modal-title"
         hidden
       >
+        <span class="dismisal" aria-hidden="true" @click=${this.closeModal}></span>
         <section class="modal-content" role="document">
           <button
             id="${this.uniqueIdPrefix}close-modal-button"

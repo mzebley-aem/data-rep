@@ -17,6 +17,15 @@
     &[hidden] {
         display: none;
     }
+    .dismisal {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        cursor: pointer;
+        z-index:1;
+    }
 }
 
 .modal-content {
@@ -38,7 +47,8 @@
     line-height: var(--dr-modal-content-line-height);
     color: var(--dr-modal-content-ink);
     border: var(--dr-modal-content-border-width) solid var(--dr-modal-content-border-color);
-
+    position: relative;
+    z-index:1;
     button.close-modal {
         color: var(--dr-modal-close-button-color);
         background-color: var(--dr-modal-close-button-background);
